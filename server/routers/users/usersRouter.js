@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const usersMethods = require('./usersMethods');
 
-router.post('/register', usersModel.registerUser);
-router.post('/login', usersModel.loginUser);
-router.patch('/updatecart/:userid', usersModel.updateCart);
+router.post('/register', usersMethods.registerUser);
+router.post('/login', usersMethods.loginUser);
+router.patch('/updatecart/:userid', usersMethods.updateCart);
 
 module.exports = router;

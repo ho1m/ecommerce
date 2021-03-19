@@ -1,11 +1,6 @@
 <template>
   <b-row class="mt-3">
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
-    <ProductCard />
+    <ProductCard v-for="product in products" :product="product" :key="product._id" />
   </b-row>
 </template>
 
@@ -15,7 +10,8 @@ export default {
   name: 'ProductsDeck',
   components: {
     ProductCard
-  }
+  },
+  props: ['products']
 }
 </script>
 

@@ -9,9 +9,11 @@ module.exports = {
   },
 
   verifyToken (req, res, next) {
+    console.log(req.headers.authorization)
     try {
-      const token = req.headers.Authorization.split(' ')[1];
-      if (jwt.verify(token, key)) next();
+      const token = req.headers.authorization.split(' ')[1];
+      jwt.verify(token, key)
+      next();
     } catch (error) {
       res.status(409).json({
         ...error,

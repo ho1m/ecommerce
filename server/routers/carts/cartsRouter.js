@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const chatsMethods = require('./chatsMethods');
+const cartsMethods = require('./cartsMethods');
 const { verifyToken } = require('../../authentication/auth');
 
-router.get('/checkedout/:userid', verifyToken, chatsMethods.getOrders);
-router.get('/one/:checkoutid', verifyToken, chatsMethods.getCart);
-router.post('/create', verifyToken, chatsMethods.createCart);
-router.patch('/products/:checkoutid/:productid', verifyToken, chatsMethods.changeCartProduct);
-router.delete('/products/:checkoutid/:productid', verifyToken, chatsMethods.deleteCarProduct);
+router.get('/checkedout/:userid', verifyToken, cartsMethods.getOrders);
+router.get('/one/:checkoutid', verifyToken, cartsMethods.getCart);
+router.post('/create', verifyToken, cartsMethods.createCart);
+router.patch('/products/:checkoutid/:productid', verifyToken, cartsMethods.changeCartProduct);
+router.delete('/products/:checkoutid/:productid', verifyToken, cartsMethods.deleteCarProduct);
 
 module.exports = router;

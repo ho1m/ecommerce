@@ -25,7 +25,22 @@ export default {
   box-sizing: border-box;
 }
 
+.img__container {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.img__container > img {
+  width: 100%;
+  height: auto;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
 }
 </style>
