@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import ecomAxios from '../ecomAxios'
 import productsModule from './modules/productsModule'
+import cartsModule from './modules/cartsModule'
 
 Vue.use(Vuex)
 
@@ -9,12 +10,12 @@ export default new Vuex.Store({
   state: {
     user: null,
     token: null,
-    current_cart: ''
+    currentCart: ''
   },
   getters: {
     user: (state) => state.user,
     token: (state) => state.token,
-    current_cart: (state) => state.current_cart
+    currentCart: (state) => state.currentCart
   },
   mutations: {
     SET_USER (state, user) {
@@ -24,12 +25,12 @@ export default new Vuex.Store({
       state.token = token
     },
     SET_CURRENT_CART (state, cartid) {
-      state.current_cart = cartid
+      state.currentCart = cartid
     },
     SIGNOUT (state) {
       state.user = null
       state.token = null
-      state.current_cart = ''
+      state.currentCart = ''
     }
   },
   actions: {
@@ -54,6 +55,7 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    productsModule
+    productsModule,
+    cartsModule
   }
 })

@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const usersMethods = require('./usersMethods');
+const { verifyToken } = require('../../authentication/auth');
 
 router.post('/register', usersMethods.registerUser);
 router.post('/login', usersMethods.loginUser);
-router.patch('/updatecart/:userid', usersMethods.updateCart);
+router.patch('/updatecartid/:userid', verifyToken, usersMethods.updateCart);
 
 module.exports = router;

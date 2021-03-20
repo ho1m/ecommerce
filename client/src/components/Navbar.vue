@@ -16,7 +16,7 @@
           <UserPopover :user="user" v-if="user" />
           <LoginPopover v-else />
 <!--  -->
-          <CartPopover :cartid="current_cart" />
+          <CartPopover :cartId="currentCart" />
         </b-navbar-nav>
       </b-collapse>
       <!--  -->
@@ -42,7 +42,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['user', 'current_cart'])
+    ...mapGetters(['user', 'currentCart'])
   }
 }
 </script>

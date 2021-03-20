@@ -70,8 +70,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
-  name: 'CartPopover'
+  name: 'CartPopover',
+  // props: ['cartId'],
+  methods: {
+    ...mapActions(['getCart'])
+  },
+  mounted () {
+    this.getCart()
+  }
 }
 </script>
 
