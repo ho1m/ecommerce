@@ -53,6 +53,10 @@ module.exports = {
     })
   },
   updateCart (req, res) {
-
+    /// updatecartid/:userId
+    User.updateOne({ _id: req.params.userId }, {
+      current_cart: req.body.current_cart
+    }).then(data => res.status(200).json(data))
+      .catch(err => res.status(500).json(err))
   }
 }

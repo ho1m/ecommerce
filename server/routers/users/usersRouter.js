@@ -4,6 +4,6 @@ const { verifyToken } = require('../../authentication/auth');
 
 router.post('/register', usersMethods.registerUser);
 router.post('/login', usersMethods.loginUser);
-router.patch('/updatecartid/:userid', verifyToken, usersMethods.updateCart);
+router.patch('/updatecartid/:userId', verifyToken, usersMethods.updateCart);
 
 module.exports = router;

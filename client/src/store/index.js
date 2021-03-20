@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 import ecomAxios from '../ecomAxios'
 import productsModule from './modules/productsModule'
 import cartsModule from './modules/cartsModule'
@@ -52,10 +53,25 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
+    },
+    async addCurrentCart ({ commit, state }, { cartId }) {
+      try {
+        const res = await ecomAxios.patch(`/users/updatecartid/${state.user._id}`, {
+          current_cart: cartId
+        }, {
+          headers: {
+            authorization: `Bearer ${state.token}`
+          }
+        })
+        console.log(res)
+      } catch (error) {
+        console.error(error)
+      }
     }
   },
   modules: {
     productsModule,
     cartsModule
-  }
+  },
+  plugins: [createPersistedState()]
 })

@@ -18,7 +18,7 @@
                 {{desc(product.desc)}}
               </h4>
 
-              <b-button variant="primary">Add To Cart</b-button>
+              <b-button variant="primary" @click="addProduct(product)">Add To Cart</b-button>
             </div>
           </b-jumbotron>
         </slide>
@@ -39,9 +39,12 @@ export default {
   name: 'Home',
   components: { ProductsDeck, Carousel, Slide },
   methods: {
-    ...mapActions(['getProducts']),
+    ...mapActions(['getProducts', 'addProductToCart']),
     desc (desc) {
       return desc.substr(0, 200) + '.'
+    },
+    addProduct (product) {
+      this.addProductToCart({ product })
     }
   },
   computed: {

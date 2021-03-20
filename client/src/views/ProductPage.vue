@@ -1,33 +1,50 @@
 <template>
-  <div class="productPage flex-fill">
+  <div class="productPage flex-fill" v-if="selectedProduct">
     <b-container class="row mx-auto my-5 px-0">
       <div class="img__container col-6 rounded">
-        <img src="https://images.pexels.com/photos/2533266/pexels-photo-2533266.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="">
+        <img :src="selectedProduct.image" alt="">
       </div>
-      <div class="product__text col-6">
-        <h2>BootstrapVue</h2>
+      <div class="product__text col-6 py-5">
+        <h2>{{selectedProduct.name}}</h2>
 
         <p class="mt-2 mb-4">
-          It uses utility classes for typography and spacing to space content out within the larger
-          container.
+          {{selectedProduct.shortDesc}}
         </p>
 
         <h4 class="mb-3">
-          This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-          featured content or information.
+          {{selectedProduct.desc}}
         </h4>
 
-        <b-button variant="primary" class="mt-3">Add To Cart</b-button>
+        <b-button
+        variant="primary"
+        class="mt-3"
+        @click="addProduct"
+        >Add To Cart</b-button>
       </div>
     </b-container>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'ProductPage',
-  props: ['productid']
-  // need to pull prod // or send in through data the prod info
+  props: ['productId'],
+  computed: {
+    ...mapGetters(['selectedProduct'])
+  },
+  methods: {
+    ...mapActions(['getProduct', 'addProductToCart']),
+    addProduct () {
+      this.addProductToCart({ product: this.selectedProduct })
+    }
+  },
+  mounted () {
+    this.getProduct({ productId: this.productId })
+  },
+  destroyed () {
+    this.$store.commit('EMPTY_PRODUCT')
+  }
 }
 </script>
 

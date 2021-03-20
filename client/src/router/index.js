@@ -25,7 +25,7 @@ const routes = [
     component: SignUp
   },
   {
-    path: '/productpage/:productid',
+    path: '/productpage/:productId',
     name: 'ProductPage',
     component: ProductPage,
     props: true
