@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
+// import createPersistedState from 'vuex-persistedstate'
 import ecomAxios from '../ecomAxios'
 import productsModule from './modules/productsModule'
 import cartsModule from './modules/cartsModule'
@@ -28,14 +28,18 @@ export default new Vuex.Store({
     SET_CURRENT_CART (state, cartid) {
       state.currentCart = cartid
     },
+    REMOVE_CURRENT_CART (state) {
+      state.currentCart = ''
+    },
     SIGNOUT (state) {
       state.user = null
       state.token = null
       state.currentCart = ''
+      state.cartsModule.cart = null
     }
   },
   actions: {
-    async login ({ commit }, { loginData }) {
+    async login ({ commit, dispatch }, { loginData }) {
       try {
         const loginRes = await ecomAxios.post('/users/login', loginData)
         const { user, token, currentCart } = loginRes.data
@@ -43,6 +47,7 @@ export default new Vuex.Store({
         commit('SET_USER', user)
         commit('SET_TOKEN', token)
         commit('SET_CURRENT_CART', currentCart)
+        dispatch('getCart')
       } catch (error) {
         console.error(error)
       }
@@ -54,7 +59,7 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async addCurrentCart ({ commit, state }, { cartId }) {
+    async updateUserCurrentCart ({ commit, state }, { cartId }) {
       try {
         const res = await ecomAxios.patch(`/users/updatecartid/${state.user._id}`, {
           current_cart: cartId
@@ -72,6 +77,6 @@ export default new Vuex.Store({
   modules: {
     productsModule,
     cartsModule
-  },
-  plugins: [createPersistedState()]
+  }
+  // plugins: [createPersistedState()]
 })

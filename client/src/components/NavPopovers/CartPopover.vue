@@ -23,16 +23,16 @@
             <div class="ml-2 d-flex align-items-center">
               <div class="d-flex flex-column align-items-stretch justify-content-center mr-1">
                 <!-- add to product quantity -->
-                <b-button variant="transparent p-0" class="border border-1">
+                <b-button variant="transparent p-0" class="border border-1" @click="() => updateProductInCart({ type: 'add', productId: product.product._id })">
                   <b-icon icon="caret-up-fill" />
                 </b-button>
                 <!-- sub to product quantity --- if quantity is 1 then resolve to delete-->
-                <b-button variant="transparent p-0" class="border border-1">
+                <b-button variant="transparent p-0" class="border border-1" @click="() => updateProductInCart({ type: 'sub', productId: product.product._id })">
                   <b-icon icon="caret-down-fill" />
                 </b-button>
               </div>
-              <!-- delete product from cart products -->
-              <b-button id="" variant="danger">
+              <!-- delete product from cart products deleteProductFromCart -->
+              <b-button id="" variant="danger" @click="() => deleteProductFromCart({ productId: product.product._id })">
                 <b-icon icon="trash" />
               </b-button>
             </div>
@@ -47,7 +47,7 @@
       class="mt-3"
       body-class="p-1"
     >
-      <b-button variant="primary w-100">CHECKOUT</b-button>
+      <b-button variant="primary w-100" @click="checkout" >CHECKOUT</b-button>
     </b-card>
 
   </b-popover>
@@ -59,11 +59,16 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'CartPopover',
   methods: {
-    ...mapActions(['getCart'])
+    ...mapActions(['getCart', 'updateProductInCart', 'deleteProductFromCart', 'cartCheckedOut']),
+    checkout () {
+      this.cartCheckedOut()
+      this.$router.replace(`/checkout/success/${this.cart._id}`)
+    }
   },
   computed: {
     ...mapGetters(['cart']),
     totalPrice () {
+      if (!this.cart) return 0
       return this.cart.products.map(({ product, quantity }) => product.price * quantity).reduce((a, b) => a + b, 0)
     }
   },
