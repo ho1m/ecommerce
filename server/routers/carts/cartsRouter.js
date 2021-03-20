@@ -7,6 +7,6 @@ router.get('/one/:cartid', cartsMethods.getCart);
 router.post('/create', cartsMethods.createCart);
 router.patch('/:cartId/products/create', cartsMethods.createCartProduct);
 router.patch('/:cartId/products/:productId/:type', cartsMethods.changeCartProduct);
-router.delete('/:cartId/products/:productId', cartsMethods.deleteCarProduct);
+router.delete('/:cartId/products/:productId', cartsMethods.deleteCartProduct);
 
 module.exports = router;

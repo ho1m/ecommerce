@@ -2,7 +2,7 @@
 <div class="cart__popContainer">
   <b-button id="popover-3-bottomleft" variant="transparent" class="p-0 ml-5">
     <b-icon icon="cart" scale="1.2" />
-    <b-badge circle variant="dark" class="ml-1 pt-1">0</b-badge>
+    <b-badge circle variant="dark" class="ml-1 pt-1">{{cart ? cart.products.length : 0}}</b-badge>
   </b-button>
 
   <b-popover
@@ -16,18 +16,33 @@
         <b-list-group-item class="d-flex align-items-center p-2" v-for="(product, i) in cart.products" :key="product.product._id+i" >
           <b-avatar :src="product.product.image" size="2.5em"></b-avatar>
           <div class="w-100 ml-2 d-flex align-items-center justify-content-between">
-            <div class="">
-              <h6 class="mb-0">{{product.product.name}}</h6>
-              <p class="mb-0">{{product.product.price}}</p>
+            <div class="flex-grow-2">
+              <h6 class="mb-0">{{product.product.name}} <span>x {{product.quantity}}</span></h6>
+              <p class="mb-0">Price: ${{product.product.price}}</p>
             </div>
-            <p class="mb-0">x {{product.quantity}}</p>
+            <div class="ml-2 d-flex align-items-center">
+              <div class="d-flex flex-column align-items-stretch justify-content-center mr-1">
+                <!-- add to product quantity -->
+                <b-button variant="transparent p-0" class="border border-1">
+                  <b-icon icon="caret-up-fill" />
+                </b-button>
+                <!-- sub to product quantity --- if quantity is 1 then resolve to delete-->
+                <b-button variant="transparent p-0" class="border border-1">
+                  <b-icon icon="caret-down-fill" />
+                </b-button>
+              </div>
+              <!-- delete product from cart products -->
+              <b-button id="" variant="danger">
+                <b-icon icon="trash" />
+              </b-button>
+            </div>
           </div>
         </b-list-group-item>
 
     </b-list-group>
 
     <b-card
-      header="TOTAL PRICE: $3956.00"
+      :header="`TOTAL PRICE: $${totalPrice}`"
       header-tag="header"
       class="mt-3"
       body-class="p-1"
@@ -47,7 +62,10 @@ export default {
     ...mapActions(['getCart'])
   },
   computed: {
-    ...mapGetters(['cart'])
+    ...mapGetters(['cart']),
+    totalPrice () {
+      return this.cart.products.map(({ product, quantity }) => product.price * quantity).reduce((a, b) => a + b, 0)
+    }
   },
   mounted () {
     this.getCart()
@@ -57,6 +75,6 @@ export default {
 
 <style>
   .cart__pop {
-    width: 500px !important;
+    min-width: 30% !important;
   }
 </style>
