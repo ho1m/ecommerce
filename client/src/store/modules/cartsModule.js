@@ -2,14 +2,19 @@ import ecomAxios from '../../ecomAxios'
 
 const module = {
   state: () => ({
-    cart: null
+    cart: null,
+    orders: []
   }),
   getters: {
-    cart: (state) => state.cart
+    cart: (state) => state.cart,
+    orders: (state) => state.orders
   },
   mutations: {
     SET_CART (state, cart) {
       state.cart = cart
+    },
+    SET_ORDERS (state, orders) {
+      state.orders = orders
     }
   },
   actions: {
@@ -82,10 +87,26 @@ const module = {
       try {
         if (!rootState.currentCart) return
         await ecomAxios.patch(`/carts/checkedout/${rootState.currentCart}`)
-        if (rootState.user) dispatch('updateUserCurrentCart', { cartId: '' })
+        if (rootState.user) {
+          dispatch('updateUserCurrentCart', { cartId: '' })
+          dispatch('getCheckedoutCarts')
+        }
         state.cart = null
         commit('REMOVE_CURRENT_CART', null, { root: true })
         dispatch('getCart')
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getCheckedoutCarts ({ commit, rootState }) {
+      try {
+        if (!rootState.user) return
+        const res = await ecomAxios.get(`/carts/checkedout/${rootState.user._id}`, {
+          headers: {
+            authorization: `Bearer ${rootState.token}`
+          }
+        })
+        commit('SET_ORDERS', res.data)
       } catch (error) {
         console.error(error)
       }

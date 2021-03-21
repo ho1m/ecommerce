@@ -36,6 +36,7 @@ export default new Vuex.Store({
       state.token = null
       state.currentCart = ''
       state.cartsModule.cart = null
+      state.cartsModule.orders = null
     }
   },
   actions: {
@@ -48,6 +49,7 @@ export default new Vuex.Store({
         commit('SET_TOKEN', token)
         commit('SET_CURRENT_CART', currentCart)
         dispatch('getCart')
+        dispatch('getCheckedoutCarts')
       } catch (error) {
         console.error(error)
       }

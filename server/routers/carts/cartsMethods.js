@@ -2,7 +2,10 @@ const Cart = require('../../models/cartsModel');
 
 module.exports = {
   getOrders (req, res) {
-
+    //router.get('/checkedout/:userid', verifyToken, cartsMethods.getOrders);
+    Cart.find({ user_id: req.params.userId, checked_out: true })
+      .then(data => res.status(200).json(data))
+      .catch(err => res.status(500).json(err))
   },
   getCart (req, res) {
     Cart.findOne({ _id: req.params.cartid })

@@ -1,48 +1,33 @@
 <template>
-  <div class="order__container d-flex align-items-center justify-content-center flex-column flex-fill">
+  <div class="order__container d-flex align-items-center justify-content-center flex-column flex-fill py-5">
     <b-container class=" orders">
     <h3 class="align-self-start">Orders</h3>
     <template class="w-100">
       <div class="accordion w-100" role="tablist">
-        <b-card no-body class="mb-1">
+
+        <b-card no-body class="mb-1" v-for="order in list" :key="order._id">
           <b-card-header header-tag="header" class="p-1" role="tab">
-            <b-button block v-b-toggle.accordion-1 variant="dark">
-              ORDER #992930330 • 2020-09-22 • TOTAL PRICE: $1902
+            <b-button block v-b-toggle="`accordion-${order._id}`" variant="dark">
+              ORDER #{{order._id}} • {{order.updatedAt | moment("dddd, MMMM Do YYYY") }} • TOTAL PRICE: ${{totalPrice(order.products)}}
             </b-button>
           </b-card-header>
-          <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
+          <b-collapse :id="`accordion-${order._id}`" accordion="my-accordion" role="tabpanel">
             <b-card-body>
               <b-list-group>
 
-                <b-list-group-item class="d-flex ">
-                  <b-avatar src="https://placekitten.com/300/300" size="5em"></b-avatar>
+                <b-list-group-item class="d-flex" v-for="product in order.products" :key="product.product._id">
+                  <b-avatar :src="product.product.image" size="5em"></b-avatar>
                   <div class="flex-fill ml-3">
                     <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1">Airpods</h5>
-                      <small>1x</small>
+                      <h5 class="mb-1">{{product.product.name}}</h5>
+                      <small>x {{product.quantity}}</small>
                     </div>
 
                     <p class="mb-1">
-                      The best of the best headphones this is supposed to be the damn description.
+                      {{product.product.shortDesc}}
                     </p>
 
-                    <small>$399.00</small>
-                  </div>
-                </b-list-group-item>
-
-                <b-list-group-item class="d-flex">
-                  <b-avatar src="https://placekitten.com/300/300" size="5em"></b-avatar>
-                  <div class="flex-fill ml-3">
-                    <div class="d-flex w-100 justify-content-between">
-                      <h5 class="mb-1">RayCon</h5>
-                      <small class="text-muted">3x</small>
-                    </div>
-
-                    <p class="mb-1">
-                      Second best airpods copycat in the whole damn world and we are taking over baby.
-                    </p>
-
-                    <small>$989.00</small>
+                    <small>${{product.product.price}}</small>
                   </div>
                 </b-list-group-item>
 
@@ -51,7 +36,7 @@
           </b-collapse>
         </b-card>
 
-        <b-card no-body class="mb-1">
+        <!-- <b-card no-body class="mb-1">
           <b-card-header header-tag="header" class="p-1" role="tab">
             <b-button block v-b-toggle.accordion-2 variant="dark">
               ORDER #19292B330 • 2010-10-12 • TOTAL PRICE: $22902
@@ -75,7 +60,8 @@
               <b-card-text>{{ text }}</b-card-text>
             </b-card-body>
           </b-collapse>
-        </b-card>
+        </b-card> -->
+
       </div>
     </template>
     </b-container>
@@ -83,45 +69,23 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Orders',
-  data () {
-    return {
-      text: `
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-        tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-        wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-        synth nesciunt you probably haven't heard of them accusamus labore VHS.
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-        tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-        wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-        synth nesciunt you probably haven't heard of them accusamus labore VHS.
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-        tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-        wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-        synth nesciunt you probably haven't heard of them accusamus labore VHS.
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-        tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-        wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-        synth nesciunt you probably haven't heard of them accusamus labore VHS.
-      `
+  computed: {
+    ...mapGetters(['orders']),
+    list () {
+      return [...this.orders].reverse()
     }
+  },
+  methods: {
+    ...mapActions(['getCheckedoutCarts']),
+    totalPrice (productsList) {
+      return productsList.map(({ product, quantity }) => product.price * quantity).reduce((a, b) => a + b, 0)
+    }
+  },
+  mounted () {
+    this.getCheckedoutCarts()
   }
 }
 </script>

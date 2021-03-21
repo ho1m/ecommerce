@@ -2,7 +2,7 @@ const router = require('express').Router();
 const cartsMethods = require('./cartsMethods');
 const { verifyToken } = require('../../authentication/auth');
 
-router.get('/checkedout/:userid', verifyToken, cartsMethods.getOrders);
+router.get('/checkedout/:userId', verifyToken, cartsMethods.getOrders);
 router.get('/one/:cartid', cartsMethods.getCart);
 router.post('/create', cartsMethods.createCart);
 router.patch('/checkedout/:cartId', cartsMethods.cartCheckedOut);

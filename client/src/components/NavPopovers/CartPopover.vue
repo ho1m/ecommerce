@@ -61,6 +61,7 @@ export default {
   methods: {
     ...mapActions(['getCart', 'updateProductInCart', 'deleteProductFromCart', 'cartCheckedOut']),
     checkout () {
+      if (!this.cart || !this.cart.products.length) return
       this.cartCheckedOut()
       this.$router.replace(`/checkout/success/${this.cart._id}`)
     }
