@@ -2,7 +2,7 @@
 <div class="cart__popContainer">
   <b-button id="popover-3-bottomleft" variant="transparent" class="p-0 ml-5">
     <b-icon icon="cart" scale="1.2" />
-    <b-badge circle variant="dark" class="ml-1 pt-1">{{cart ? cart.products.length : 0}}</b-badge>
+    <b-badge circle variant="dark" class="ml-1 pt-1">{{cart ? totalQuantity : 0}}</b-badge>
   </b-button>
 
   <b-popover
@@ -69,12 +69,17 @@ export default {
   computed: {
     ...mapGetters(['cart']),
     totalPrice () {
-      if (!this.cart) return 0
+      if (!this.cart?.products.length) return 0
       return this.cart.products.map(({ product, quantity }) => product.price * quantity).reduce((a, b) => a + b, 0)
+    },
+    totalQuantity () {
+      if (!this.cart?.products.length) return 0
+      return this.cart.products.map(prod => prod.quantity).reduce((a, b) => a + b)
     }
   },
   mounted () {
     this.getCart()
+    console.log(this.cart)
   }
 }
 </script>

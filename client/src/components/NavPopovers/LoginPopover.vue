@@ -49,7 +49,6 @@ export default {
     }
   },
   methods: {
-    // aedit all this shit bellow
     ...mapActions(['login']),
     HandleSubmit () {
       const loginData = {

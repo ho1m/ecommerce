@@ -56,4 +56,3 @@ module.exports = {
   }
 }
 
-// ({products: { $elemMatch: {'product._id': req.params.productId} }}).quantity: 

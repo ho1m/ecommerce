@@ -28,7 +28,6 @@ module.exports = {
     User.findOne({ email: req.body.email }, (err, user) => {
       if (err) return res.status(500).json(err);
       if (user) {
-        // check if password correct and then send in token + shit
         const match = bcrypt.compareSync(req.body.password, user.passwordHash);
         if (match) {
           res.status(200).json({

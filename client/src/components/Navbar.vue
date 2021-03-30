@@ -24,10 +24,6 @@
     </b-navbar>
   </div>
 </template>
-          <!-- <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-          </b-nav-form> -->
 <script>
 import { mapGetters } from 'vuex'
 import CartPopover from './NavPopovers/CartPopover.vue'
@@ -37,10 +33,6 @@ import UserPopover from './NavPopovers/UserPopover.vue'
 export default {
   name: 'Navbar',
   components: { UserPopover, LoginPopover, CartPopover },
-  data () {
-    return {
-    }
-  },
   computed: {
     ...mapGetters(['user', 'currentCart'])
   }

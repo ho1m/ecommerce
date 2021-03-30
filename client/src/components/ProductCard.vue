@@ -21,7 +21,6 @@ export default {
   name: 'ProductCard',
   props: ['product'],
   mounted () {
-    console.log(this.product)
   },
   computed: {
     desc () {

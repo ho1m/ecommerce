@@ -15,6 +15,10 @@
           {{selectedProduct.desc}}
         </h4>
 
+        <h4 class="mb-3">
+          ${{selectedProduct.price}}
+        </h4>
+
         <b-button
         variant="primary"
         class="mt-3"

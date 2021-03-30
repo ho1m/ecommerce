@@ -18,6 +18,8 @@
                 {{desc(product.desc)}}
               </h4>
 
+              <h5>${{product.price}}</h5>
+
               <b-button variant="primary" @click="addProduct(product)">Add To Cart</b-button>
             </div>
           </b-jumbotron>

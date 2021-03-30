@@ -26,8 +26,4 @@ export default {
 </script>
 
 <style>
-  /* .footer {
-
-    height: 25vh;
-  } */
 </style>

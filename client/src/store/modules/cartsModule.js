@@ -57,7 +57,6 @@ const module = {
         if (!cartId) {
           dispatch('createCart', { product })
         } else {
-          // if already in cart just raise using updateProductInCart
           if (state.cart.products.find(({ product }) => product._id === _id)) {
             dispatch('updateProductInCart', { type: 'add', productId: _id })
           } else {
@@ -75,7 +74,6 @@ const module = {
           user_id: rootState.user ? rootState.user._id : '',
           products: [{ product, quantity: 1 }]
         })
-        // set current_cart + in user
         if (rootState.user) dispatch('updateUserCurrentCart', { cartId: cartRes.data._id })
         rootState.currentCart = cartRes.data._id
         dispatch('getCart')
