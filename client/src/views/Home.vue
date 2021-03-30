@@ -4,10 +4,10 @@
       <carousel :autoplay="true" :autoplayHoverPause="true" :navigationEnabled="true" :perPage="1" :paginationPadding="3">
         <slide v-for="product in products.slice(0,3)" :key="product._id" >
           <b-jumbotron class="row align-items-center h-100 py-4">
-            <div class="img__container col-3 rounded">
+            <div class="img__container col-12 col-md-3 rounded">
               <img class="rounded" :src="product.image" alt="">
             </div>
-            <div class="product__text col-9">
+            <div class="product__text col-12 col-md-9">
               <h2>{{product.name}}</h2>
 
               <p class="my-2">

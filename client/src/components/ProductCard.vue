@@ -1,5 +1,5 @@
 <template>
-  <b-col cols="4" class="mb-4" v-if="product">
+  <b-col sm="12" md="4" class="mb-4" v-if="product">
     <router-link :to="`/productpage/${product._id}`" tag="div">
     <b-card class="productcard text-dark">
       <b-card-body>
