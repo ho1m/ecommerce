@@ -23,7 +23,7 @@
         <b-icon icon="tools" />
         Settings
       </b-list-group-item>
-      <b-list-group-item button class="bg-secondary text-light font-weight-bold" @click="$store.commit('SIGNOUT')">Sign Out</b-list-group-item>
+      <b-list-group-item button class="bg-secondary text-light font-weight-bold" @click="signout">Sign Out</b-list-group-item>
     </b-list-group>
   </b-popover>
 </div>
@@ -32,7 +32,13 @@
 <script>
 export default {
   name: 'UserPopover',
-  props: ['user']
+  props: ['user'],
+  methods: {
+    signout () {
+      this.$router.replace('/')
+      this.$store.commit('SIGNOUT')
+    }
+  }
 }
 </script>
 

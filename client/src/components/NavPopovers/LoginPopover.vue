@@ -7,7 +7,7 @@
   <b-popover
     target="popover-2-bottomleft"
     placement="bottomleft"
-    triggers="hover"
+    triggers="hover click"
     custom-class="w-50 p-2"
   >
     <h6 class="mb-3">Login to your account here</h6>

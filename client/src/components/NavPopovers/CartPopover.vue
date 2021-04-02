@@ -8,7 +8,7 @@
   <b-popover
     target="popover-3-bottomleft"
     placement="bottomleft"
-    triggers="hover"
+    triggers="hover click"
     custom-class="p-2 cart__pop"
   >
     <b-list-group v-if="cart">

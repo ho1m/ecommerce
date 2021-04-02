@@ -1,10 +1,10 @@
 <template>
   <div class="productPage flex-fill" v-if="selectedProduct">
     <b-container class="row mx-auto my-5 px-0">
-      <div class="img__container col-6 rounded">
+      <div class="img__container col-12 col-sm-6 rounded">
         <img :src="selectedProduct.image" alt="">
       </div>
-      <div class="product__text col-6 py-5">
+      <div class="product__text col-12 col-sm-6 py-5">
         <h2>{{selectedProduct.name}}</h2>
 
         <p class="mt-2 mb-4">

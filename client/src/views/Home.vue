@@ -1,5 +1,5 @@
 <template>
-  <b-container class="flex-fill">
+  <b-container class="flex-fill overflow-hidden">
     <div class="mt-4 mb-5">
       <carousel :autoplay="true" :autoplayHoverPause="true" :navigationEnabled="true" :perPage="1" :paginationPadding="3">
         <slide v-for="product in products.slice(0,3)" :key="product._id" >
